@@ -2,6 +2,7 @@ package com.ruoyi.framework.web.service;
 
 import javax.annotation.Resource;
 
+import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.exception.user.UserPasswordRetryLimitExceedException;
 import com.ruoyi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,7 @@ public class SysLoginService {
         }
         AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        SysUser user = loginUser.getUser();
         // 生成token
         return tokenService.createToken(loginUser);
     }
