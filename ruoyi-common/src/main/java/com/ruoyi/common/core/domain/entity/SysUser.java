@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -91,6 +93,11 @@ public class SysUser extends BaseEntity
 
     /** 岗位组 */
     private Long[] postIds;
+
+    /** 修改密码时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "修改密码时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date updatePasswordTime;
 
     public SysUser()
     {
@@ -323,6 +330,15 @@ public class SysUser extends BaseEntity
             .append("updateTime", getUpdateTime())
             .append("remark", getRemark())
             .append("dept", getDept())
+            .append("updatePasswordTime", getUpdatePasswordTime())
             .toString();
+    }
+
+    public Date getUpdatePasswordTime() {
+        return updatePasswordTime;
+    }
+
+    public void setUpdatePasswordTime(Date updatePasswordTime) {
+        this.updatePasswordTime = updatePasswordTime;
     }
 }
